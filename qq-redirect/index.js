@@ -1,3 +1,16 @@
+const isQuanX = typeof $notify != "undefined"
+const isSurgeiOS =
+    "undefined" !== typeof $environment &&
+    $environment["surge-version"] &&
+    $environment.system == "iOS"
+const isLooniOS = typeof $loon != "undefined" && /iPhone/.test($loon)
+const isStashiOS =
+    "undefined" !== typeof $environment &&
+    $environment["stash-version"] &&
+    $environment.system == "iOS"
+const isShadowrocket = "undefined" !== typeof $rocket
+const isLanceX = "undefined" != typeof $native
+
 function notify(title = '', subtitle = '', content = '', open_url) {
   if (isQuanX && /iOS/.test($environment.version)) {
       let opts = {}
@@ -32,6 +45,17 @@ function notify(title = '', subtitle = '', content = '', open_url) {
   }
 }
 
-$notify('title', 'subtitle', 'content', {
+const redirectStatus = isQuanX ? "HTTP/1.1 302 Temporary Redirect" : 302
+const trueURL = new URL($request.url).searchParams.pfurl
+const redirect = {
+    status: redirectStatus,
+    headers: {
+        Location: trueURL,
+    },
+}
+
+$done(redirect)
+
+$notify('title', 'subtitle', trueURL, {
   'open-url': 'https://baidu.com',
 })
