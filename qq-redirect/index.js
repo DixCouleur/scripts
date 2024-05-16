@@ -53,9 +53,9 @@ const redirect = {
         Location: trueURL,
     },
 }
-
-$done(redirect)
-
+console.log('trueURL', trueURL)
 $notify('title', 'subtitle', trueURL, {
-  'open-url': 'https://baidu.com',
-})
+    'open-url': 'https://baidu.com',
+  })
+  
+$done(redirect)
