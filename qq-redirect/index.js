@@ -64,8 +64,6 @@ const redirect = {
     },
 }
 
-$notify('title', 'subtitle', 'content', {
+$notify('QQ自动重定向', '点击浏览器打开', '', {
     'open-url': trueURL,
 })
-
-$done(redirect)
