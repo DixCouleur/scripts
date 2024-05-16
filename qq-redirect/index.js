@@ -45,8 +45,18 @@ function notify(title = '', subtitle = '', content = '', open_url) {
   }
 }
 
+function extractQueryParam(url, paramName) {
+    const regex = new RegExp(`[?&]${paramName}=([^&#]*)`, 'i')
+    const match = regex.exec(url)
+    if (match) {
+      return decodeURIComponent(match[1])
+    }
+
+    return null
+}
+
 const redirectStatus = isQuanX ? "HTTP/1.1 302 Temporary Redirect" : 302
-const trueURL = new URL($request.url).searchParams.pfurl
+const trueURL = extractQueryParam($request.url, 'pfurl')
 const redirect = {
     status: redirectStatus,
     headers: {
@@ -54,7 +64,7 @@ const redirect = {
     },
 }
 
-$notify('title', 'subtitle', trueURL, {
-    'open-url': 'https://baidu.com',
+$notify('title', 'subtitle', 'content', {
+    'open-url': trueURL,
 })
 
