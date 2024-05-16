@@ -68,3 +68,4 @@ $notify('title', 'subtitle', 'content', {
     'open-url': trueURL,
 })
 
+$done(redirect)
